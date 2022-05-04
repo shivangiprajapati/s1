@@ -1,0 +1,30 @@
+Scaffold-DbContext "Data Source=SHIVU\SQLEXPRESS;Initial Catalog=employedb;user id=sa;password=123456;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+Scaffold-DbContext "Data Source=SHIVU\SQLEXPRESS;Initial Catalog=employedb;Integrated Security=True;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+Microsoft.AspNet.WebApi
+Microsoft.AspNet.WebApi.Cli
+System.Net.Http
+
+
+Scaffold-DbContext "Connection String;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+
+"ConnectionStrings": {
+    "DBConnectionStrings": "Data Source=SHIVU\\SQLEXPRESS;Initial Catalog=employedb;Integrated Security=True;Trusted_Connection=True;"
+  }
+
+services.AddDbContext<DICTDBContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DBConnectionStrings")));
+
+services.AddDbContext<employedbContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DBConnectionStrings")));
+            services.AddControllersWithViews();
+
+
+
+ConfigurationBuilder confBuilder = new ConfigurationBuilder();
+                optionsBuilder.UseSqlServer(confBuilder.Build().GetSection("ConnectionStrings:DBConnectionStrings").Value);
+
+
+
+httpclient client = new httpclient();
+            string url = "https://localhost:44308/api/Departments";
